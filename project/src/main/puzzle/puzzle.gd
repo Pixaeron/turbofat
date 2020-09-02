@@ -9,6 +9,7 @@ class to add goals, win conditions, challenges or time limits.
 var _food_color: Color
 
 func _ready() -> void:
+	Global.benchmark_start("puzzle-ready")
 	if not ResourceCache.is_done():
 		# when launched standalone, we don't load creature resources (they're slow)
 		ResourceCache.minimal_resources = true
@@ -24,6 +25,8 @@ func _ready() -> void:
 		summon_instructor(true)
 	
 	$RestaurantView.get_customer().play_hello_voice(true)
+	Global.benchmark_end("puzzle-ready")
+	Global.benchmark_end("launch-puzzle")
 
 
 """

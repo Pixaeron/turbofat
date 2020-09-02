@@ -1,0 +1,7 @@
+*try caching Puzzle.tscn file... Tes, it's about 1000 ms faster
+-try only initializing Puzzle.tscn once
+-restore threading for ResourceCache
+
+
+2132.292 ms to launch a puzzle
+903.100 ms to launch a puzzle

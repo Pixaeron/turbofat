@@ -41,6 +41,8 @@ var _work_total := 3.0
 var _remaining_resource_paths := []
 var _remaining_resource_paths_mutex := Mutex.new()
 
+var _remaining_scene_paths := []
+
 # mutex which controls the 'finished' signal. locked once and never unlocked.
 var _finished_signal_mutex := Mutex.new()
 
@@ -58,18 +60,20 @@ func start_load() -> void:
 		# Godot issue #12699; threads not supported for HTML5
 		pass
 	else:
-		for _i in range(THREAD_COUNT):
-			var thread := Thread.new()
-			thread.start(self, "_preload_all_pngs")
-			_load_threads.append(thread)
+#		for _i in range(THREAD_COUNT):
+#			var thread := Thread.new()
+#			thread.start(self, "_preload_all_resources")
+#			_load_threads.append(thread)
+		pass
 
 
 func _process(_delta: float) -> void:
-	if OS.has_feature("web") and _remaining_resource_paths:
+#	if OS.has_feature("web") and _remaining_resource_paths:
+	if _remaining_resource_paths:
 		var start_usec := OS.get_ticks_usec()
 		# Web targets do not support background threads, so we load a few resources every frame
 		while _remaining_resource_paths and OS.get_ticks_usec() < start_usec + 1000000 * CHUNK_SECONDS: 
-			_preload_next_png()
+			_preload_next_resource()
 
 
 func _exit_tree() -> void:
@@ -93,15 +97,15 @@ Loads all pngs in the /assets directory and stores the resulting resources in ou
 Parameters:
 	'_userdata': Unused; needed for threads
 """
-func _preload_all_pngs(_userdata: Object) -> void:
+func _preload_all_resources(_userdata: Object) -> void:
 	while _remaining_resource_paths and not _exiting:
-		_preload_next_png()
+		_preload_next_resource()
 
 
 """
 Loads a single png in the /assets directory and stores the resulting resource in our cache
 """
-func _preload_next_png() -> void:
+func _preload_next_resource() -> void:
 	_remaining_resource_paths_mutex.lock()
 	var path: String = _remaining_resource_paths.pop_front()
 	_remaining_resource_paths_mutex.unlock()
@@ -130,7 +134,7 @@ func _find_resource_paths() -> Array:
 	_remaining_resource_paths.clear()
 	
 	# directories remaining to be traversed
-	var dir_queue := ["res://assets/main"]
+	var dir_queue := ["res://assets/main", "res://src/main"]
 	
 	var dir: Directory
 	var file: String
@@ -138,6 +142,8 @@ func _find_resource_paths() -> Array:
 		if file:
 			if dir.current_is_dir():
 				dir_queue.append("%s/%s" % [dir.get_current_dir(), file])
+			elif file.ends_with(".tscn"):
+				_remaining_resource_paths.append("%s/%s" % [dir.get_current_dir(), file.get_file()])
 			elif file.ends_with(".png.import") or file.ends_with(".wav.import"):
 				_remaining_resource_paths.append("%s/%s" % [dir.get_current_dir(), file.get_basename()])
 		else:

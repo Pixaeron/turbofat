@@ -46,6 +46,7 @@ Parameters:
 	'dna': Creature who should appear in the restaurant.
 """
 func push_scenario_trail(scenario_settings: ScenarioSettings, dna: Dictionary = {}) -> void:
+	Global.benchmark_start("launch-puzzle")
 	start_scenario(scenario_settings)
 	if dna:
 		Global.creature_queue.push_front(dna)
