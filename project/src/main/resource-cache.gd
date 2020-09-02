@@ -46,6 +46,8 @@ var _remaining_scene_paths := []
 # mutex which controls the 'finished' signal. locked once and never unlocked.
 var _finished_signal_mutex := Mutex.new()
 
+var puzzle: Node
+
 """
 Initializes the resource load.
 
@@ -77,6 +79,8 @@ func _process(_delta: float) -> void:
 
 
 func _exit_tree() -> void:
+	puzzle.free()
+	
 	if _load_threads:
 		_exiting = true
 		for thread in _load_threads:
@@ -118,6 +122,7 @@ func _preload_next_resource() -> void:
 	
 	if is_done() and _finished_signal_mutex.try_lock() == OK:
 		# Emit signals on the main thread. Otherwise there are strange side effects like breakpoints not working
+		puzzle = _cache.get("res://src/main/puzzle/Puzzle.tscn").instance()
 		call_deferred("emit_signal", "finished_loading")
 
 

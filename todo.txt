@@ -1,7 +1,16 @@
-*try caching Puzzle.tscn file... Tes, it's about 1000 ms faster
--try only initializing Puzzle.tscn once
+*try caching Puzzle.tscn file... Yes, it's about 1000 ms faster
+*try only initializing Puzzle.tscn once... MUCH faster, 400 instantaneous
+-reinitialize
+ -clear end-of-level stuff
+ -new customers
+ -reset goal UI
+-Create 'cached_scenes' array in ResourceCache
+-can't talk to boatricia anymore?
+*ObjectDB instances leaked at exit
 -restore threading for ResourceCache
+-cache overworld
 
 
 2132.292 ms to launch a puzzle
 903.100 ms to launch a puzzle
+406.010 ms to launch a puzzle (and then instantaneous)

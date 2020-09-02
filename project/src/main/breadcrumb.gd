@@ -49,8 +49,18 @@ Changes the running scene to the one at the front of the breadcrumb trail.
 """
 func _change_scene() -> void:
 	if trail:
-		if ResourceCache._cache.has(trail.front()):
-			print("53: oh!")
+		if get_tree().current_scene == ResourceCache.puzzle:
+			print("51: Removing puzzle scene")
+			get_tree().get_root().remove_child(get_tree().current_scene)
+			get_tree().current_scene = null
+		if trail.front() == "res://src/main/puzzle/Puzzle.tscn":
+			print("52: Switching to cached puzzle node")
+			get_tree().get_root().remove_child(get_tree().current_scene)
+			get_tree().get_root().add_child(ResourceCache.puzzle)
+			get_tree().current_scene = ResourceCache.puzzle
+		elif ResourceCache._cache.has(trail.front()):
+			print("53: Loading cached scene")
 			get_tree().change_scene_to(ResourceCache._cache.get(trail.front()))
 		else:
+			print("60: Changing scene the slow way")
 			get_tree().change_scene(trail.front())
