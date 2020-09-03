@@ -30,18 +30,7 @@ func _ready() -> void:
 	for skill_tally_item_obj in $SkillTallyItems/GridContainer.get_children():
 		var skill_tally_item: SkillTallyItem = skill_tally_item_obj
 		skill_tally_item.set_puzzle(_puzzle)
-	refresh()
-	
-	if Scenario.settings.name.begins_with("tutorial-beginner"):
-		_puzzle.hide_start_button()
-		_puzzle.hide_back_button()
-		yield(get_tree().create_timer(0.40), "timeout")
-		append_message("Welcome to Turbo Fat!//"
-				+ " You seem to already be familiar with this sort of game,/ so let's dive right in.")
-		yield(get_tree().create_timer(0.80), "timeout")
-		_puzzle.show_start_button()
-		if PlayerData.scenario_history.finished_scenarios.has(Scenario.BEGINNER_TUTORIAL):
-			_puzzle.show_back_button()
+	connect("tree_entered", self, "_on_tree_entered")
 
 
 """
@@ -264,3 +253,18 @@ func _on_Scenario_settings_changed() -> void:
 
 func _on_PuzzleScore_game_started() -> void:
 	append_message("Clear a row by filling it with blocks.")
+
+
+func _on_tree_entered() -> void:
+	refresh()
+	
+	if Scenario.settings.name.begins_with("tutorial-beginner"):
+		_puzzle.hide_start_button()
+		_puzzle.hide_back_button()
+		yield(get_tree().create_timer(0.40), "timeout")
+		append_message("Welcome to Turbo Fat!//"
+				+ " You seem to already be familiar with this sort of game,/ so let's dive right in.")
+		yield(get_tree().create_timer(0.80), "timeout")
+		_puzzle.show_start_button()
+		if PlayerData.scenario_history.finished_scenarios.has(Scenario.BEGINNER_TUTORIAL):
+			_puzzle.show_back_button()

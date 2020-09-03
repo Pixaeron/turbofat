@@ -24,6 +24,7 @@ const HINTS = [
 func _ready() -> void:
 	PuzzleScore.connect("game_prepared", self, "_on_PuzzleScore_game_prepared")
 	PuzzleScore.connect("after_game_ended", self, "_on_PuzzleScore_after_game_ended")
+	connect("tree_entered", self, "_on_tree_entered")
 
 
 func hide_results_message() -> void:
@@ -148,3 +149,7 @@ func _on_ResultsLabel_text_shown(new_text: String) -> void:
 	if new_text.begins_with("Customer #"):
 		var amount := int(StringUtils.substring_after_last(new_text, "¥").replace(",", ""))
 		$MoneyLabel.set_shown_money($MoneyLabel.shown_money + amount)
+
+
+func _on_tree_entered() -> void:
+	hide_results_message()

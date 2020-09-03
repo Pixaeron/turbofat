@@ -18,15 +18,9 @@ func _ready() -> void:
 	PuzzleScore.connect("after_game_ended", self, "_on_PuzzleScore_after_game_ended")
 	$Playfield/TileMapClip/TileMap/Viewport/ShadowMap.piece_tile_map = $PieceManager/TileMap
 	
-	for i in range(3):
-		$RestaurantView.summon_creature(i)
-	
-	if Scenario.settings.other.tutorial:
-		summon_instructor(true)
-	
-	$RestaurantView.get_customer().play_hello_voice(true)
 	Global.benchmark_end("puzzle-ready")
 	Global.benchmark_end("launch-puzzle")
+	connect("tree_entered", self, "_on_tree_entered")
 
 
 """
@@ -192,3 +186,13 @@ This makes the stutter from writing to disk less noticable.
 """
 func _on_PuzzleScore_after_game_ended() -> void:
 	PlayerSave.save_player_data()
+
+
+func _on_tree_entered() -> void:
+	for i in range(3):
+		$RestaurantView.summon_creature(i)
+	
+	if Scenario.settings.other.tutorial:
+		summon_instructor(true)
+	
+	$RestaurantView.get_customer().play_hello_voice(true)

@@ -12,12 +12,7 @@ func _ready() -> void:
 	PuzzleScore.connect("game_started", self, "_on_PuzzleScore_game_started")
 	PuzzleScore.connect("game_ended", self, "_on_PuzzleScore_game_ended")
 	PuzzleScore.connect("after_game_ended", self, "_on_PuzzleScore_after_game_ended")
-	$MessageLabel.hide()
-	# grab focus so the player can start a new game or navigate with the keyboard
-	$StartGameButton.grab_focus()
-	
-	if Scenario.overworld_puzzle:
-		$BackButton.text = "Quit"
+	connect("tree_entered", self, "_on_tree_entered")
 
 
 func hide_start_button() -> void:
@@ -104,3 +99,12 @@ func _on_PuzzleScore_after_game_ended() -> void:
 			# grab focus so the player can start a new game or navigate with the keyboard
 			$StartGameButton.show()
 			$StartGameButton.grab_focus()
+
+
+func _on_tree_entered() -> void:
+	$MessageLabel.hide()
+	# grab focus so the player can start a new game or navigate with the keyboard
+	$StartGameButton.grab_focus()
+	
+	if Scenario.overworld_puzzle:
+		$BackButton.text = "Quit"

@@ -1,14 +1,20 @@
 *try caching Puzzle.tscn file... Yes, it's about 1000 ms faster
 *try only initializing Puzzle.tscn once... MUCH faster, 400 instantaneous
+*can't talk to boatricia anymore?
+*ObjectDB instances leaked at exit
 -reinitialize
  -clear end-of-level stuff
  -new customers
  -reset goal UI
+ -alternate tutorial and non-tutorial? is it OK?
 -Create 'cached_scenes' array in ResourceCache
--can't talk to boatricia anymore?
-*ObjectDB instances leaked at exit
 -restore threading for ResourceCache
 -cache overworld
+-lots of new warnings...
+ -first != null is true
+ -cleanup: ObjectDB instances leaked at exit
+ -resources still in use at exit
+ -there are still memorypool allocs in use at exit
 
 
 2132.292 ms to launch a puzzle

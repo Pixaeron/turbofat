@@ -21,16 +21,7 @@ const LEVEL_COLOR_5 := Color("b948b9")
 func _ready() -> void:
 	PuzzleScore.connect("game_prepared", self, "_on_PuzzleScore_game_prepared")
 	Scenario.connect("settings_changed", self, "_on_Scenario_settings_changed")
-	match Scenario.settings.finish_condition.type:
-		Milestone.CUSTOMERS:
-			$Desc.text = "Customers"
-		Milestone.LINES:
-			$Desc.text = "Lines"
-		Milestone.SCORE:
-			$Desc.text = "Money"
-		Milestone.TIME_OVER:
-			$Desc.text = "Time"
-	init_milebar()
+	connect("tree_entered", self, "_on_tree_entered")
 
 
 func _process(_delta: float) -> void:
@@ -115,4 +106,17 @@ func _on_PuzzleScore_game_prepared() -> void:
 
 
 func _on_Scenario_settings_changed() -> void:
+	init_milebar()
+
+
+func _on_tree_entered() -> void:
+	match Scenario.settings.finish_condition.type:
+		Milestone.CUSTOMERS:
+			$Desc.text = "Customers"
+		Milestone.LINES:
+			$Desc.text = "Lines"
+		Milestone.SCORE:
+			$Desc.text = "Money"
+		Milestone.TIME_OVER:
+			$Desc.text = "Time"
 	init_milebar()
