@@ -6,3 +6,4 @@ onready var _creature: Creature = get_node(creature_path)
 
 func _ready() -> void:
 	$Viewport.world = _creature.get_node("CreatureOutline/Viewport").world
+	$Viewport.world_2d = _creature.get_node("CreatureOutline/Viewport").world_2d

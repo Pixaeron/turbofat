@@ -336,6 +336,13 @@ creature_visuals_path = NodePath("../CreatureOutline/Viewport/Visuals")
 
 [node name="CreatureOutline" type="Node2D" parent="."]
 
+[node name="ViewportContainer" type="ViewportContainer" parent="CreatureOutline"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Viewport" type="Viewport" parent="CreatureOutline"]
 size = Vector2( 1200, 1200 )
 transparent_bg = true

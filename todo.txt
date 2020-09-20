@@ -8,6 +8,7 @@
  *transparent background
  -bigger
  -zoomed in
+ -photo outline color matches
  -includes metadata
 -add 'camera' icon
 -import photo
