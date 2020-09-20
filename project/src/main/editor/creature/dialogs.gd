@@ -33,24 +33,45 @@ func _on_ImportDialog_file_selected(path: String) -> void:
 		$Error.popup_centered()
 
 
-func _on_ExportButton_pressed() -> void:
+func _on_ExportJsonButton_pressed() -> void:
 	if OS.has_feature("web"):
 		_show_import_export_not_supported_error()
 		return
 	
 	var exported_creature: Creature = _creature_editor.center_creature
 	var sanitized_creature_name := StringUtils.sanitize_file_root(exported_creature.creature_short_name)
-	$Export.current_file = "%s.json" % sanitized_creature_name
-	$Export.popup_centered()
+	$ExportJson.current_file = "%s.json" % sanitized_creature_name
+	$ExportJson.popup_centered()
+
+
+func _on_ExportPngButton_pressed() -> void:
+	if OS.has_feature("web"):
+		_show_import_export_not_supported_error()
+		return
+	
+	var exported_creature: Creature = _creature_editor.center_creature
+	var sanitized_creature_name := StringUtils.sanitize_file_root(exported_creature.creature_short_name)
+	$ExportPng.current_file = "%s.png" % sanitized_creature_name
+	$ExportPng.popup_centered()
 
 
 """
-Imports the currently edited creature to a file.
+Exports the currently edited creature to a file.
 """
-func _on_ExportDialog_file_selected(path: String) -> void:
+func _on_ExportJsonDialog_file_selected(path: String) -> void:
 	var exported_creature: Creature = _creature_editor.center_creature
 	var exported_json := exported_creature.creature_def.to_json_dict()
 	FileUtils.write_file(path, Utils.print_json(exported_json))
+
+
+func _on_ExportPngDialog_file_selected(path: String) -> void:
+	print("68: file selected: %s" % path)
+	var texture_rect: TextureRect = _creature_editor.center_creature.get_node("CreatureOutline/TextureRect")
+	print("70: texture_rect=%s" % texture_rect) 
+	var image := texture_rect.texture.get_data()
+	image.convert(Image.FORMAT_RGBA8)
+	image.flip_y()
+	image.save_png(path)
 
 
 func _on_SaveButton_pressed() -> void:

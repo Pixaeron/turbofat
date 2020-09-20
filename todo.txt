@@ -1,10 +1,14 @@
--new 'photo' tab
+*new 'photo' tab
 -export photo; takes screenshot
- -screenshot of entire game
- -encoded as PNG
- -screenshot of just the creature
- -transparent background
+ *dialog popup
+ *only .PNG files
+ *screenshot of entire game
+ *encoded as PNG
+ *screenshot of just the creature
+ *transparent background
+ -zoomed in
  -includes metadata
+-add 'camera' icon
 -import photo
  -interprets metadata
  -error when importing regular png
@@ -14,3 +18,5 @@
  -hide other creatures
  -highlight the part of the creature which will be exported
  -zoom in/zoom out
+-cleanup
+ -move 'photo' tab to end

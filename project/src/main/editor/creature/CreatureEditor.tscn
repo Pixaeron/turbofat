@@ -1213,7 +1213,47 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Photo" type="Panel" parent="Ui/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Ui/TabContainer/Photo"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Ui/TabContainer/Photo/ScrollContainer"]
+margin_right = 400.0
+margin_bottom = 492.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Ui/TabContainer/Photo/ScrollContainer/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 395.0
+margin_bottom = 487.0
+
+[node name="Button" type="Button" parent="Ui/TabContainer/Photo/ScrollContainer/MarginContainer/VBoxContainer"]
+margin_right = 100.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 100, 26 )
+size_flags_horizontal = 0
+theme = ExtResource( 2 )
+text = "Export"
+
 [node name="Tweak" type="Panel" parent="Ui/TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -1546,7 +1586,7 @@ allele = "head"
 
 [node name="EyeContainer" type="HBoxContainer" parent="Ui/TabContainer/Mutate/ScrollContainer/MarginContainer/VBoxContainer"]
 margin_top = 124.0
-margin_right = 390.0
+margin_right = 378.0
 margin_bottom = 150.0
 custom_constants/separation = 5
 
@@ -1590,7 +1630,7 @@ allele = "ear"
 
 [node name="HornContainer" type="HBoxContainer" parent="Ui/TabContainer/Mutate/ScrollContainer/MarginContainer/VBoxContainer"]
 margin_top = 279.0
-margin_right = 390.0
+margin_right = 378.0
 margin_bottom = 305.0
 custom_constants/separation = 5
 
@@ -1610,7 +1650,7 @@ allele = "horn_rgb"
 
 [node name="HairContainer" type="HBoxContainer" parent="Ui/TabContainer/Mutate/ScrollContainer/MarginContainer/VBoxContainer"]
 margin_top = 310.0
-margin_right = 390.0
+margin_right = 378.0
 margin_bottom = 336.0
 custom_constants/separation = 5
 
@@ -1636,7 +1676,7 @@ allele = "collar"
 
 [node name="BellyContainer" type="HBoxContainer" parent="Ui/TabContainer/Mutate/ScrollContainer/MarginContainer/VBoxContainer"]
 margin_top = 372.0
-margin_right = 390.0
+margin_right = 378.0
 margin_bottom = 398.0
 custom_constants/separation = 5
 
@@ -1674,7 +1714,7 @@ allele = "fatness"
 
 [node name="Spacer" type="Control" parent="Ui/TabContainer/Mutate/ScrollContainer/MarginContainer/VBoxContainer"]
 margin_top = 465.0
-margin_right = 390.0
+margin_right = 378.0
 margin_bottom = 465.0
 size_flags_vertical = 3
 __meta__ = {
@@ -1683,7 +1723,7 @@ __meta__ = {
 
 [node name="ImportContainer" type="HBoxContainer" parent="Ui/TabContainer/Mutate/ScrollContainer/MarginContainer/VBoxContainer"]
 margin_top = 470.0
-margin_right = 390.0
+margin_right = 378.0
 margin_bottom = 496.0
 custom_constants/separation = 5
 
@@ -1795,7 +1835,7 @@ filters = PoolStringArray( "*.json" )
 current_dir = "/workspace/turbofat/project"
 current_path = "/workspace/turbofat/project/"
 
-[node name="Export" type="FileDialog" parent="Ui/Dialogs"]
+[node name="ExportJson" type="FileDialog" parent="Ui/Dialogs"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1807,6 +1847,22 @@ margin_bottom = 480.0
 popup_exclusive = true
 window_title = "Export Creature"
 access = 2
+filters = PoolStringArray( "*.json" )
+current_dir = "/workspace/turbofat/project"
+current_path = "/workspace/turbofat/project/"
+
+[node name="ExportPng" type="FileDialog" parent="Ui/Dialogs"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 192.0
+margin_top = 80.0
+margin_right = 792.0
+margin_bottom = 480.0
+popup_exclusive = true
+access = 2
+filters = PoolStringArray( "*.png" )
 current_dir = "/workspace/turbofat/project"
 current_path = "/workspace/turbofat/project/"
 
@@ -1823,11 +1879,12 @@ dialog_autowrap = true
 [connection signal="mouse_exited" from="Ui/CreatureSelector" to="Ui/CreatureSelector" method="_on_mouse_exited"]
 [connection signal="pressed" from="Ui/Reroll/Button" to="." method="_on_Reroll_pressed"]
 [connection signal="value_changed" from="Ui/Reroll/HSlider" to="Ui/Reroll" method="_on_HSlider_value_changed"]
+[connection signal="pressed" from="Ui/TabContainer/Photo/ScrollContainer/MarginContainer/VBoxContainer/Button" to="Ui/Dialogs" method="_on_ExportPngButton_pressed"]
 [connection signal="pressed" from="Ui/TabContainer/Tweak/ScrollContainer/MarginContainer/VBoxContainer/ImportContainer/Import" to="Ui/Dialogs" method="_on_ImportButton_pressed"]
-[connection signal="pressed" from="Ui/TabContainer/Tweak/ScrollContainer/MarginContainer/VBoxContainer/ImportContainer/Export" to="Ui/Dialogs" method="_on_ExportButton_pressed"]
+[connection signal="pressed" from="Ui/TabContainer/Tweak/ScrollContainer/MarginContainer/VBoxContainer/ImportContainer/Export" to="Ui/Dialogs" method="_on_ExportJsonButton_pressed"]
 [connection signal="pressed" from="Ui/TabContainer/Tweak/ScrollContainer/MarginContainer/VBoxContainer/Save" to="Ui/Dialogs" method="_on_SaveButton_pressed"]
 [connection signal="pressed" from="Ui/TabContainer/Mutate/ScrollContainer/MarginContainer/VBoxContainer/ImportContainer/Import" to="Ui/Dialogs" method="_on_ImportButton_pressed"]
-[connection signal="pressed" from="Ui/TabContainer/Mutate/ScrollContainer/MarginContainer/VBoxContainer/ImportContainer/Export" to="Ui/Dialogs" method="_on_ExportButton_pressed"]
+[connection signal="pressed" from="Ui/TabContainer/Mutate/ScrollContainer/MarginContainer/VBoxContainer/ImportContainer/Export" to="Ui/Dialogs" method="_on_ExportJsonButton_pressed"]
 [connection signal="pressed" from="Ui/TabContainer/Mutate/ScrollContainer/MarginContainer/VBoxContainer/Save" to="Ui/Dialogs" method="_on_SaveButton_pressed"]
 [connection signal="pressed" from="Ui/Settings" to="SettingsMenu" method="_on_Settings_pressed"]
 [connection signal="pressed" from="Ui/Quit" to="." method="_on_Quit_pressed"]
@@ -1837,9 +1894,12 @@ dialog_autowrap = true
 [connection signal="about_to_show" from="Ui/Dialogs/Import" to="Ui/Dialogs/Backdrop" method="_on_Dialog_about_to_show"]
 [connection signal="file_selected" from="Ui/Dialogs/Import" to="Ui/Dialogs" method="_on_ImportDialog_file_selected"]
 [connection signal="popup_hide" from="Ui/Dialogs/Import" to="Ui/Dialogs/Backdrop" method="_on_Dialog_popup_hide"]
-[connection signal="about_to_show" from="Ui/Dialogs/Export" to="Ui/Dialogs/Backdrop" method="_on_Dialog_about_to_show"]
-[connection signal="file_selected" from="Ui/Dialogs/Export" to="Ui/Dialogs" method="_on_ExportDialog_file_selected"]
-[connection signal="popup_hide" from="Ui/Dialogs/Export" to="Ui/Dialogs/Backdrop" method="_on_Dialog_popup_hide"]
+[connection signal="about_to_show" from="Ui/Dialogs/ExportJson" to="Ui/Dialogs/Backdrop" method="_on_Dialog_about_to_show"]
+[connection signal="file_selected" from="Ui/Dialogs/ExportJson" to="Ui/Dialogs" method="_on_ExportJsonDialog_file_selected"]
+[connection signal="popup_hide" from="Ui/Dialogs/ExportJson" to="Ui/Dialogs/Backdrop" method="_on_Dialog_popup_hide"]
+[connection signal="about_to_show" from="Ui/Dialogs/ExportPng" to="Ui/Dialogs/Backdrop" method="_on_Dialog_about_to_show"]
+[connection signal="file_selected" from="Ui/Dialogs/ExportPng" to="Ui/Dialogs" method="_on_ExportPngDialog_file_selected"]
+[connection signal="popup_hide" from="Ui/Dialogs/ExportPng" to="Ui/Dialogs/Backdrop" method="_on_Dialog_popup_hide"]
 [connection signal="about_to_show" from="Ui/Dialogs/Error" to="Ui/Dialogs/Backdrop" method="_on_Dialog_about_to_show"]
 [connection signal="popup_hide" from="Ui/Dialogs/Error" to="Ui/Dialogs/Backdrop" method="_on_Dialog_popup_hide"]
 [connection signal="quit_pressed" from="SettingsMenu" to="." method="_on_Quit_pressed"]
