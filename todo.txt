@@ -1,0 +1,16 @@
+-new 'photo' tab
+-export photo; takes screenshot
+ -screenshot of entire game
+ -encoded as PNG
+ -screenshot of just the creature
+ -transparent background
+ -includes metadata
+-import photo
+ -interprets metadata
+ -error when importing regular png
+ -play with '.turbo.png' suffix? does this work?
+-gold plating
+ -different background colors
+ -hide other creatures
+ -highlight the part of the creature which will be exported
+ -zoom in/zoom out
