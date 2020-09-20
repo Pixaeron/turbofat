@@ -6,6 +6,7 @@
  *encoded as PNG
  *screenshot of just the creature
  *transparent background
+ -bigger
  -zoomed in
  -includes metadata
 -add 'camera' icon
@@ -20,3 +21,8 @@
  -zoom in/zoom out
 -cleanup
  -move 'photo' tab to end
+
+
+-fix: 
+ -photo frame script
+ -'outline' material

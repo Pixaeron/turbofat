@@ -74,6 +74,9 @@
 [ext_resource path="res://assets/main/world/creature/1/food-laser-packed.png" type="Texture" id=72]
 [ext_resource path="res://assets/main/world/creature/3/bellybutton-packed.png" type="Texture" id=73]
 
+[sub_resource type="ViewportTexture" id=1]
+viewport_path = NodePath("World/PhotoFrame/Viewport")
+
 [node name="CreatureEditor" type="Node"]
 script = ExtResource( 8 )
 
@@ -1136,6 +1139,28 @@ dna = {
 "tail": "1"
 }
 suppress_sfx = true
+
+[node name="PhotoFrame" type="Control" parent="World"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 165.0
+margin_bottom = 165.0
+script = ExtResource( 46 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+creature_path = NodePath("../Creatures/CenterCreature")
+
+[node name="Viewport" type="Viewport" parent="World/PhotoFrame"]
+
+[node name="TextureRect" type="TextureRect" parent="World/PhotoFrame"]
+material = ExtResource( 6 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Ui" type="CanvasLayer" parent="."]
 
