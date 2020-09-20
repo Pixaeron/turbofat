@@ -121,7 +121,10 @@ func _physics_process(delta: float) -> void:
 			visual_fatness = min(visual_fatness + 4 * delta, fatness)
 		elif visual_fatness > fatness:
 			visual_fatness = max(visual_fatness - 4 * delta, fatness)
-		set_visual_fatness(lerp(visual_fatness, fatness, 0.008))
+		var new_visual_fatness: float = lerp(visual_fatness, fatness, 0.008)
+		if is_equal_approx(new_visual_fatness, fatness):
+			new_visual_fatness = fatness
+		set_visual_fatness(new_visual_fatness)
 
 
 func set_comfort(new_comfort: float) -> void:

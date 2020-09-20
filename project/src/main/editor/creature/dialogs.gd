@@ -65,14 +65,11 @@ func _on_ExportJsonDialog_file_selected(path: String) -> void:
 
 
 func _on_ExportPngDialog_file_selected(path: String) -> void:
-	print("68: file selected: %s" % path)
 	var texture_rect: TextureRect = _creature_editor.center_creature.get_node("CreatureOutline/TextureRect")
-	print("70: texture_rect=%s" % texture_rect) 
-#	var image := texture_rect.texture.get_data()
-	var image := get_viewport().get_texture().get_data()
+	var viewport: Viewport = get_node("../../World/PhotoFrame/Panel/ViewportContainer/Viewport")
+	var image := viewport.get_texture().get_data()
 	image.convert(Image.FORMAT_RGBA8)
 	image.flip_y()
-	image.save_png(path)
 
 
 func _on_SaveButton_pressed() -> void:

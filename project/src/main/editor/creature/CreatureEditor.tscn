@@ -74,19 +74,21 @@
 [ext_resource path="res://assets/main/world/creature/1/food-laser-packed.png" type="Texture" id=72]
 [ext_resource path="res://assets/main/world/creature/3/bellybutton-packed.png" type="Texture" id=73]
 [ext_resource path="res://src/main/editor/creature/photo-frame.gd" type="Script" id=74]
-[ext_resource path="res://src/main/viewport-outline-material.tres" type="Material" id=75]
-
-[sub_resource type="ViewportTexture" id=1]
-viewport_path = NodePath("World/PhotoFrame/Viewport")
+[ext_resource path="res://src/main/puzzle/PuzzleHudStyleBox.tres" type="StyleBox" id=75]
+[ext_resource path="res://src/main/editor/creature/creature-editor-tab-container.gd" type="Script" id=76]
 
 [node name="CreatureEditor" type="Node"]
 script = ExtResource( 8 )
 
 [node name="World" type="Node" parent="."]
 
-[node name="CreatureShadows" parent="World" instance=ExtResource( 5 )]
+[node name="CreatureShadows" parent="World" groups=[
+"not_visible_with_photo_tab",
+] instance=ExtResource( 5 )]
 
-[node name="Creatures" type="Node2D" parent="World"]
+[node name="Creatures" type="Node2D" parent="World" groups=[
+"not_visible_with_photo_tab",
+]]
 
 [node name="NwCreature" parent="World/Creatures" instance=ExtResource( 1 )]
 position = Vector2( 164, 244 )
@@ -1142,31 +1144,64 @@ dna = {
 }
 suppress_sfx = true
 
-[node name="PhotoFrame" type="Control" parent="World"]
-margin_left = 5.0
-margin_top = 5.0
-margin_right = 165.0
-margin_bottom = 165.0
+[node name="PhotoFrame" type="Control" parent="World" groups=[
+"only_visible_with_photo_tab",
+]]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -424.0
+margin_bottom = -10.0
+mouse_filter = 2
 script = ExtResource( 74 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 creature_path = NodePath("../Creatures/CenterCreature")
 
-[node name="Viewport" type="Viewport" parent="World/PhotoFrame"]
-size = Vector2( 1200, 1200 )
-
-[node name="TextureRect" type="TextureRect" parent="World/PhotoFrame"]
-material = ExtResource( 75 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = 753.0
-margin_bottom = 451.0
-texture = SubResource( 1 )
-flip_v = true
+[node name="Panel" type="Panel" parent="World/PhotoFrame"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -94.0
+margin_top = -94.0
+margin_right = 94.0
+margin_bottom = 94.0
+rect_min_size = Vector2( 188, 188 )
+custom_styles/panel = ExtResource( 75 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ViewportContainer" type="ViewportContainer" parent="World/PhotoFrame/Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -90.0
+margin_top = -90.0
+margin_right = 90.0
+margin_bottom = 90.0
+rect_min_size = Vector2( 180, 180 )
+size_flags_horizontal = 0
+stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="World/PhotoFrame/Panel/ViewportContainer"]
+size = Vector2( 180, 180 )
+size_override_stretch = true
+handle_input_locally = false
+usage = 0
+render_target_update_mode = 3
+audio_listener_enable_2d = true
+
+[node name="Camera2D" type="Camera2D" parent="World/PhotoFrame/Panel/ViewportContainer/Viewport"]
+position = Vector2( 512, 820 )
+current = true
 
 [node name="Ui" type="CanvasLayer" parent="."]
 
@@ -1174,7 +1209,9 @@ __meta__ = {
 script = ExtResource( 3 )
 HookableNametagScene = ExtResource( 4 )
 
-[node name="CreatureSelector" type="Control" parent="Ui"]
+[node name="CreatureSelector" type="Control" parent="Ui" groups=[
+"not_visible_with_photo_tab",
+]]
 margin_top = 108.0
 margin_right = 600.0
 margin_bottom = 600.0
@@ -1192,7 +1229,9 @@ volume_db = -8.0
 stream = ExtResource( 16 )
 volume_db = -4.0
 
-[node name="Reroll" type="VBoxContainer" parent="Ui"]
+[node name="Reroll" type="VBoxContainer" parent="Ui" groups=[
+"not_visible_with_photo_tab",
+]]
 margin_left = 220.0
 margin_top = 24.0
 margin_right = 400.0
@@ -1240,6 +1279,7 @@ margin_top = 5.0
 margin_right = -6.0
 margin_bottom = 533.0
 rect_min_size = Vector2( 408, 528 )
+script = ExtResource( 76 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1910,6 +1950,7 @@ dialog_autowrap = true
 [connection signal="mouse_exited" from="Ui/CreatureSelector" to="Ui/CreatureSelector" method="_on_mouse_exited"]
 [connection signal="pressed" from="Ui/Reroll/Button" to="." method="_on_Reroll_pressed"]
 [connection signal="value_changed" from="Ui/Reroll/HSlider" to="Ui/Reroll" method="_on_HSlider_value_changed"]
+[connection signal="tab_changed" from="Ui/TabContainer" to="Ui/TabContainer" method="_on_tab_changed"]
 [connection signal="pressed" from="Ui/TabContainer/Photo/ScrollContainer/MarginContainer/VBoxContainer/Button" to="Ui/Dialogs" method="_on_ExportPngButton_pressed"]
 [connection signal="pressed" from="Ui/TabContainer/Tweak/ScrollContainer/MarginContainer/VBoxContainer/ImportContainer/Import" to="Ui/Dialogs" method="_on_ImportButton_pressed"]
 [connection signal="pressed" from="Ui/TabContainer/Tweak/ScrollContainer/MarginContainer/VBoxContainer/ImportContainer/Export" to="Ui/Dialogs" method="_on_ExportJsonButton_pressed"]

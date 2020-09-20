@@ -6,24 +6,29 @@
  *encoded as PNG
  *screenshot of just the creature
  *transparent background
- -bigger
- -zoomed in
- -photo outline color matches
- -includes metadata
--add 'camera' icon
--import photo
- -interprets metadata
- -error when importing regular png
- -play with '.turbo.png' suffix? does this work?
+ *bigger
+ *zoomed in
+ %photo outline color matches
+*switching tabs toggles visibility of stuff
+*switching tabs doesn't play noises and stuff when moving mouse
+*works for creatures of different fatness
+ *follows head
 -gold plating
- -different background colors
+ %different background colors
  -hide other creatures
  -highlight the part of the creature which will be exported
  -zoom in/zoom out
+-add 'camera' icon
 -cleanup
  -move 'photo' tab to end
 
 
+The idea of different background colors was appealing, but Godot does not support background colors for 2D Viewports (#252) or any way to combine to images. While I suppose it's probably technically possible to perform pixel-by-pixel manipulation to give an image a background, it seems sort of insane and I don't want to do it.
+
+-(later) Includes metadata, 'import photo' feature
+-(later) Exported creatures don't have an outline
+
 -fix: 
  -photo frame script
  -'outline' material
+ -'node not found' warning

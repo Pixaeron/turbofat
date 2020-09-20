@@ -17,6 +17,7 @@ onready var creatures: Array = get_tree().get_nodes_in_group("creatures")
 var hovered_creature: Creature setget set_hovered_creature
 
 func _input(event: InputEvent) -> void:
+	if not visible: return
 	if not event is InputEventMouse: return
 	if not get_rect().has_point(event.position): return
 	

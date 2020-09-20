@@ -10,6 +10,9 @@ const NAMETAG_HIGHLIGHT = Color("303060")
 const NAMETAG_LOWLIGHT = Color.darkgray
 
 export (PackedScene) var HookableNametagScene: PackedScene
+export (NodePath) var tab_container_path: NodePath
+
+onready var _tab_container: TabContainer = get_node(tab_container_path)
 
 # mapping from Creatures to NametagPanels
 var _creature_to_nametag: Dictionary
@@ -19,6 +22,7 @@ func _ready() -> void:
 	for creature_obj in get_tree().get_nodes_in_group("creatures"):
 		var creature: Creature = creature_obj
 		var hookable_nametag: Node2D = HookableNametagScene.instance()
+		hookable_nametag.add_to_group("not_visible_with_photo_tab")
 		var nametag: Panel = hookable_nametag.get_node("Nametag")
 		add_child(hookable_nametag)
 		creature.get_node("NametagHook").remote_path = creature.get_node("NametagHook").get_path_to(hookable_nametag)
