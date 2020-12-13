@@ -15,6 +15,20 @@ onready var _overworld_ui: OverworldUi = get_node(overworld_ui_path)
 onready var _player: Creature = get_node(player_path)
 
 func _ready() -> void:
+	var creature_scene := load("res://src/main/world/creature/Creature.tscn")
+	if not ResourceCache.richie:
+		print("22: initializing richie")
+		ResourceCache.richie = creature_scene.instance()
+		ResourceCache.richie.name = "Richie"
+		ResourceCache.richie.creature_id = "richie"
+		ResourceCache.richie.position = Vector2(113, 444)
+		ResourceCache.richie.orientation = Creature.SOUTHWEST
+		ResourceCache.richie.add_to_group("chattables")
+	else:
+		print("31: richie already initialized")
+	
+	$Obstacles.add_child(ResourceCache.richie)
+	
 	if Level.launched_level_id:
 		_overworld_ui.cutscene = true
 		
@@ -41,6 +55,12 @@ func _ready() -> void:
 	ChattableManager.refresh_creatures()
 	get_tree().get_root().connect("size_changed", self, "_on_Viewport_size_changed")
 	_refresh_goop_control_size()
+
+
+func _exit_tree() -> void:
+	if ResourceCache.richie:
+		print("59: %s.get_children().has(%s) == %s" % [$Obstacles, ResourceCache.richie, $Obstacles.get_children().has(ResourceCache.richie)])
+		$Obstacles.remove_child(ResourceCache.richie)
 
 
 func _process(_delta: float) -> void:

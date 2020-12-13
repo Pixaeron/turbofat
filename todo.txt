@@ -1,3 +1,13 @@
+*delete richie from overworld
+ *creature id: richie;  position: 113, 444;  orientation: southwest
+ *profiling: 3069 msec (about 500 ms faster)
+*add richie to overworld programatically
+*remove richie from overworld before scene change
+-apply same change to skins, bones, shirts
+ -skins: 'Skins', skins, -86, 444, southwest,
+ -bones: 'Bones', bones, -176, 484, southeast,
+ -shirts: 'Shirts', shirts, -56, 594, southeast,
+
 
 
 

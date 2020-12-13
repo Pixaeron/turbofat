@@ -24,6 +24,8 @@ func _ready() -> void:
 	# create chat icons for all chattables
 	for chattable in get_tree().get_nodes_in_group("chattables"):
 		create_icon(chattable)
+	
+	get_tree().connect("node_added", self, "_on_SceneTree_node_added")
 
 
 func create_icon(chattable: Node) -> void:
@@ -43,3 +45,14 @@ func _on_OverworldUi_chat_cached(focused_chattable: Node2D) -> void:
 	if chat_icon and chat_icon.bubble_type == ChatIcon.SPEECH:
 		yield(chat_icon, "vanish_finished")
 		chat_icon.bubble_type = ChatIcon.FILLER
+
+
+func _on_SceneTree_node_added(node: Node) -> void:
+	if node.is_in_group("creatures"):
+		print("54: creature added %s" % [node.name])
+		var chat_bubble_type := ChatLibrary.chat_icon_for_creature(node)
+		node.set_meta("chat_bubble_type", chat_bubble_type)
+	
+	if node.is_in_group("chattables"):
+		print("54: chattable added %s" % [node.name])
+		create_icon(node)

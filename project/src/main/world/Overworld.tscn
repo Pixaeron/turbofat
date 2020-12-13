@@ -285,16 +285,6 @@ player_path = NodePath("../Player")
 wait_time = 0.3
 autostart = true
 
-[node name="Richie" parent="World/Obstacles" groups=[
-"chattables",
-] instance=ExtResource( 1 )]
-position = Vector2( 113.439, 444.721 )
-creature_id = "richie"
-dna = {
-
-}
-orientation = 1
-
 [node name="Skins" parent="World/Obstacles" groups=[
 "chattables",
 ] instance=ExtResource( 1 )]
