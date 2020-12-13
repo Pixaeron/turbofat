@@ -194,6 +194,7 @@ func _lowlight_unrelated_buttons(world_id: String) -> void:
 When the player clicks a level button twice, we launch the selected level
 """
 func _on_LevelSelectButton_level_started(settings: LevelSettings) -> void:
+	Global.benchmark_start("launch-level")
 	var level_lock: LevelLock = LevelLibrary.level_lock(settings.id)
 	Level.set_launched_level(settings.id, level_lock.creature_id, level_lock.level_num)
 	if level_lock.creature_id and level_lock.level_num >= 1:

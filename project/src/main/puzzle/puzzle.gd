@@ -33,6 +33,8 @@ func _ready() -> void:
 		$PuzzleMusicManager.start_puzzle_music()
 		yield(get_tree().create_timer(0.8), "timeout")
 		_start_puzzle()
+	
+	Global.benchmark_end("launch-level")
 
 
 func _exit_tree() -> void:
