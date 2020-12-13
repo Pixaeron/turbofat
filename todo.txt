@@ -1,0 +1,56 @@
+
+
+
+
+when did it get slow?
+
+HEAD e17dc1b, 23 hours ago
+cakes and ladders: 3.53s, 3.93 (then, 1.71, 1.57)
+remove creatures from overworld, cakes and ladders: 2.56, 2.29
+remove trees, bush, crystal from overworld: 1.12s
+practice -> ultra normal: 1.18s (then, 1.12)
+
+306726b, 10 days ago
+cakes and ladders: 3.86s
+
+a1efe31, 11 days ago
+cakes and ladders: 1.97s
+remove creatures from overworld, cakes and ladders:
+
+75a2afd, 2 weeks ago
+cakes and ladders: 1.97s, 1.97s (then, 1.25)
+
+5e5c166, 3 weeks ago
+cakes and ladders: 1.11s (then, 1.31)
+
+
+
+
+
+can we fix whatever made it slow?
+
+draw mockups of overworld restaurant
+
+
+What about an overworld with 20 bushes? 3.93s
+What about an overworld with 20 trees? 4.12s
+What about an overworld with 20 marsh crystals? 4.12s
+
+
+lots of orphan nodes?
+
+profiling: 3581 msec
+eliminate MarshTree.Sprite.Material; 3693 msec
+eliminate MarshTree.Sprite; 3608 msec
+eliminate AnimationPlayer, CollisionShape; 3400 msec
+delete MarshTree from Obstacles; 3355 msec
+delete MarshBushes from Obstacles; 3703 msec
+delete MarshCrystal from Obstacles; 3584 msec
+delete seven creatures from Obstacles; 890 msec
+delete four creatures from Obstacles; 1553 msec
+
+unassign CreatureOutline.TextureRect.Material; 3159 msec
+
+Unloading a creature takes about 400 ms (!)
+
+Can we somehow prevent creatures from being unloaded?
