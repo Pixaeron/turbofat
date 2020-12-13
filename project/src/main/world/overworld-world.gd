@@ -26,8 +26,43 @@ func _ready() -> void:
 		ResourceCache.richie.add_to_group("chattables")
 	else:
 		print("31: richie already initialized")
-	
 	$Obstacles.add_child(ResourceCache.richie)
+	
+	if not ResourceCache.skins:
+		print("22: initializing skins")
+		ResourceCache.skins = creature_scene.instance()
+		ResourceCache.skins.name = "Skins"
+		ResourceCache.skins.creature_id = "skins"
+		ResourceCache.skins.position = Vector2(-86, 444)
+		ResourceCache.skins.orientation = Creature.SOUTHWEST
+		ResourceCache.skins.add_to_group("chattables")
+	else:
+		print("31: skins already initialized")
+	$Obstacles.add_child(ResourceCache.skins)
+	
+	if not ResourceCache.bones:
+		print("22: initializing bones")
+		ResourceCache.bones = creature_scene.instance()
+		ResourceCache.bones.name = "Bones"
+		ResourceCache.bones.creature_id = "bones"
+		ResourceCache.bones.position = Vector2(-176, 484)
+		ResourceCache.bones.orientation = Creature.SOUTHEAST
+		ResourceCache.bones.add_to_group("chattables")
+	else:
+		print("31: bones already initialized")
+	$Obstacles.add_child(ResourceCache.bones)
+	
+	if not ResourceCache.shirts:
+		print("22: initializing shirts")
+		ResourceCache.shirts = creature_scene.instance()
+		ResourceCache.shirts.name = "Shirts"
+		ResourceCache.shirts.creature_id = "shirts"
+		ResourceCache.shirts.position = Vector2(-56, 594)
+		ResourceCache.shirts.orientation = Creature.SOUTHEAST
+		ResourceCache.shirts.add_to_group("chattables")
+	else:
+		print("31: shirts already initialized")
+	$Obstacles.add_child(ResourceCache.shirts)
 	
 	if Level.launched_level_id:
 		_overworld_ui.cutscene = true
@@ -58,9 +93,12 @@ func _ready() -> void:
 
 
 func _exit_tree() -> void:
-	if ResourceCache.richie:
-		print("59: %s.get_children().has(%s) == %s" % [$Obstacles, ResourceCache.richie, $Obstacles.get_children().has(ResourceCache.richie)])
-		$Obstacles.remove_child(ResourceCache.richie)
+	Global.benchmark_start("remove-creatures")
+	for creature in [ResourceCache.richie, ResourceCache.skins, ResourceCache.bones, ResourceCache.shirts]:
+		if creature:
+			print("99: remove %s" % [creature.name])
+			$Obstacles.remove_child(creature)
+	Global.benchmark_end("remove-creatures")
 
 
 func _process(_delta: float) -> void:

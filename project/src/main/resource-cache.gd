@@ -56,6 +56,9 @@ var _remaining_resource_paths_mutex := Mutex.new()
 var _remaining_scene_paths := []
 
 var richie: Node2D
+var skins: Node2D
+var shirts: Node2D
+var bones: Node2D
  
 # singleton nodes, cached to preserve their appearance during scene transitions
 # key: singleton names
@@ -104,6 +107,16 @@ func _exit_tree() -> void:
 	if richie:
 		print("105: %s" % [richie.name])
 		richie.free()
+	if skins:
+		print("105: %s" % [skins.name])
+		skins.free()
+	if shirts:
+		print("105: %s" % [shirts.name])
+		shirts.free()
+	if bones:
+		print("105: %s" % [bones.name])
+		bones.free()
+	
 	for singleton in _singletons.values():
 		# singletons are not freed when their parent scene is removed from the tree, we have to free them manually
 		singleton.free()

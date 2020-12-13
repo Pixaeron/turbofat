@@ -97,6 +97,10 @@ func _ready() -> void:
 	_refresh_orientation()
 
 
+func _exit_tree() -> void:
+	print("101: Creature.exit_tree (%s)" % [name])
+
+
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return

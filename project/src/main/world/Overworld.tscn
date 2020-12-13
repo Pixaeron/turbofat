@@ -285,34 +285,6 @@ player_path = NodePath("../Player")
 wait_time = 0.3
 autostart = true
 
-[node name="Skins" parent="World/Obstacles" groups=[
-"chattables",
-] instance=ExtResource( 1 )]
-position = Vector2( -86.561, 444.721 )
-creature_id = "skins"
-dna = {
-
-}
-orientation = 1
-
-[node name="Bones" parent="World/Obstacles" groups=[
-"chattables",
-] instance=ExtResource( 1 )]
-position = Vector2( -176.561, 484.721 )
-creature_id = "bones"
-dna = {
-
-}
-
-[node name="Shirts" parent="World/Obstacles" groups=[
-"chattables",
-] instance=ExtResource( 1 )]
-position = Vector2( -56.561, 594.721 )
-creature_id = "shirts"
-dna = {
-
-}
-
 [node name="MarshTree" parent="World/Obstacles" instance=ExtResource( 70 )]
 
 [node name="MarshBush1" parent="World/Obstacles" instance=ExtResource( 71 )]
