@@ -1,0 +1,3 @@
+-Show FPS. What is the FPS on android?
+-Disable shader; try it out on android. What is the new FPS?
+-Disable viewport stuff; try it out on android. What is the new FPS?
