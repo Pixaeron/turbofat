@@ -1,3 +1,16 @@
--Show FPS. What is the FPS on android?
+-Show FPS.
+ -What is the FPS indoors? (no fancy shaders?) 1024 fps; 564 fps during cutscene
+ -What is the FPS outdoors? (fancy shaders?) 206 fps
+ -What is the FPS on android? 21 fps outdoors; 60 fps indoors; 35 fps during indoor cutscene (!)
 -Disable shader; try it out on android. What is the new FPS?
 -Disable viewport stuff; try it out on android. What is the new FPS?
+
+disabled vsync
+
+disabled overworld shader; 300-275 fps (+33%)
+short-circuit packed-sprite.draw(); 310-285 fps (not very much)
+packed-sprite sets process and physics_process to false; no change
+disable outline shader; 365-335 fps (+18%)
+remove creature viewport; 625-577 fps (+71%)
+
+android; ~18 fps still! (only outdoors; indoors is fast)

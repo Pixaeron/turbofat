@@ -34,6 +34,7 @@ func set_chat_path(new_chat_path: String) -> void:
 		set_meta("chat_path", new_chat_path)
 		set_meta("chat_bubble_type", ChatIcon.THOUGHT)
 	else:
-		remove_from_group("chattables")
+		if is_in_group("chattables"):
+			remove_from_group("chattables")
 		set_meta("chat_path", null)
 		set_meta("chat_bubble_type", null)

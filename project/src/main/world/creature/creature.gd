@@ -97,10 +97,10 @@ var _non_iso_velocity := Vector2.ZERO
 # a number from [0.0 - 1.0] based on how fast the creature can move with their current animation
 var _run_anim_speed := 1.0
 
-onready var creature_visuals: CreatureVisuals = $CreatureOutline/Viewport/Visuals
+onready var creature_visuals: CreatureVisuals = $Visuals
 
 func _ready() -> void:
-	$CreatureOutline/TextureRect.rect_scale = Vector2(TEXTURE_SCALE, TEXTURE_SCALE)
+#	$CreatureOutline/TextureRect.rect_scale = Vector2(TEXTURE_SCALE, TEXTURE_SCALE)
 	$FadeTween.connect("tween_all_completed", self, "_on_FadeTween_tween_all_completed")
 	if creature_id:
 		_refresh_creature_id()
@@ -132,7 +132,7 @@ func set_suppress_sfx(new_suppress_sfx: bool) -> void:
 
 func set_elevation(new_elevation: int) -> void:
 	elevation = new_elevation
-	$CreatureOutline.position.y = -new_elevation * $CreatureOutline/TextureRect.rect_scale.y
+#	$CreatureOutline.position.y = -new_elevation * $CreatureOutline/TextureRect.rect_scale.y
 
 
 func set_comfort(new_comfort: float) -> void:
@@ -345,8 +345,8 @@ func refresh_dna() -> void:
 		if dna:
 			dna = DnaUtils.fill_dna(dna)
 		creature_visuals.dna = dna
-		if dna.has("line_rgb"):
-			$CreatureOutline/TextureRect.material.set_shader_param("black", Color(dna.line_rgb))
+#		if dna.has("line_rgb"):
+#			$CreatureOutline/TextureRect.material.set_shader_param("black", Color(dna.line_rgb))
 
 
 """
