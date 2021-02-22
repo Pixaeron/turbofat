@@ -1,9 +1,23 @@
--Show FPS.
- -What is the FPS indoors? (no fancy shaders?) 1024 fps; 564 fps during cutscene
- -What is the FPS outdoors? (fancy shaders?) 206 fps
- -What is the FPS on android? 21 fps outdoors; 60 fps indoors; 35 fps during indoor cutscene (!)
--Disable shader; try it out on android. What is the new FPS?
--Disable viewport stuff; try it out on android. What is the new FPS?
+*Show FPS.
+ *What is the FPS indoors? (no fancy shaders?) 1024 fps; 564 fps during cutscene
+ *What is the FPS outdoors? (fancy shaders?) 206 fps
+ *What is the FPS on android? 21 fps outdoors; 60 fps indoors; 35 fps during indoor cutscene (!)
+*Disable shader; try it out on android. What is the new FPS? Still a8
+*Disable viewport stuff; try it out on android. What is the new FPS? Still 18
+-Create stress test with 20 creatures and FPS display
+ *FPS display
+ *Multiple creatures
+ -Add/remove creatures
+  -'add 1' button works
+  -'remove 1' button works
+  -'add 10' button works
+  -'remove 10' button works
+  -label shows accurate count
+ -stress test is accessible from main menu
+ -exit button
+  -button quits to main menu
+  -unsets 'forced fatness' on exit
+
 
 disabled vsync
 
@@ -14,3 +28,7 @@ disable outline shader; 365-335 fps (+18%)
 remove creature viewport; 625-577 fps (+71%)
 
 android; ~18 fps still! (only outdoors; indoors is fast)
+
+Remove trees, bushes, restaurant, exit, crystal; no change on desktop, android
+
+Create stress test with 20 creatures and FPS display
