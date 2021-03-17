@@ -5,6 +5,7 @@
   *move very slow
   -why doesn't this affect benchmarks at all?
   -outlines are too thick
+  -sitting on stools puts creature in wrong position
  -experiment with rescaling parameters (fuzzy scaling? other kinds of scaling?)
  -meet somewhere in the middle
 -decrease creature viewport size
