@@ -2,7 +2,7 @@
 *benchmark creature stress test for 40% viewport size
 -decrease creature viewport scale
  -try 100% scale (instead of 250%)
-  -move very slow
+  *move very slow
   -outlines are too thick
  -experiment with rescaling parameters (fuzzy scaling? other kinds of scaling?)
  -meet somewhere in the middle
