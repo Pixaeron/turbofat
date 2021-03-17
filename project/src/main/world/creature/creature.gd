@@ -15,7 +15,8 @@ signal dna_loaded
 signal food_eaten
 
 # The scale of the TextureRect the creature is rendered to
-const TEXTURE_SCALE := 0.4
+const TEXTURE_SCALE := 1.0
+const MAGIC_NUMBER_40936 := 0.4
 
 const IDLE = CreatureVisuals.IDLE
 
@@ -115,6 +116,8 @@ onready var _hop_sound: AudioStreamPlayer2D = $HopSound
 
 func _ready() -> void:
 	_texture_rect.rect_scale = Vector2(TEXTURE_SCALE, TEXTURE_SCALE)
+	creature_visuals.scale = Vector2(TEXTURE_SCALE, TEXTURE_SCALE)
+	
 	_fade_tween.connect("tween_all_completed", self, "_on_FadeTween_tween_all_completed")
 	if creature_id:
 		_refresh_creature_id()
@@ -511,7 +514,7 @@ The run speed varies based on how fat the creature is.
 func _update_animation() -> void:
 	if non_iso_walk_direction.length() > 0:
 		var animation_prefix: String
-		_run_anim_speed = creature_visuals.scale.y
+		_run_anim_speed = creature_visuals.scale.y / MAGIC_NUMBER_40936
 		if creature_visuals.fatness >= 3.5:
 			animation_prefix = "wiggle"
 			_run_anim_speed *= 0.200

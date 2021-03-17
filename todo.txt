@@ -1,0 +1,31 @@
+*benchmark creature stress test for 100% viewport size
+*benchmark creature stress test for 40% viewport size
+-decrease creature viewport scale
+ -try 100% scale (instead of 250%)
+  -move very slow
+  -outlines are too thick
+ -experiment with rescaling parameters (fuzzy scaling? other kinds of scaling?)
+ -meet somewhere in the middle
+-decrease creature viewport size
+ -try 50% size
+ -move viewport around so the 50% size change is transparent
+ -increase to 100% size as creature gets fatter
+ -change lower bound; how small can we make it?
+-experiment with making viewport render less frequently
+ -1 fps; benchmark creature stress test
+ -meet somewhere in the middle?
+-benchmark creature stress test with new parameters
+-more efficient outline shader?
+ -using textureLod?
+-cleanup
+ -enable vsync
+-merge
+
+
+
+TEXTURE_SCALE = 0.4:
+Creature/CreatureOutline/Viewport/Visuals position = 512,912
+
+
+    -(move Creature/CreatureOutline/Viewport/Visuals position from 512,912 to 412, 712?)
+    -(change Viewport, TextureRect size from 1200x1200 to 1000x1000)
