@@ -52,8 +52,6 @@ func _reload_sub_textures():
 	if not texture:
 		return
 	
-	sub_textures = _reset_sub_textures
-	
 	var texture_path_original: String = texture.resource_path
 	for c in range(4):
 		# TODO this is not exactly best practice
@@ -65,6 +63,8 @@ func _reload_sub_textures():
 		# only set this when file actually exists i.e. channel used
 		if Directory.new().file_exists(texture_path):
 			sub_textures[c] = load(texture_path)
+		else:
+			sub_textures[c] = null
 
 func _on_draw() -> void:
 	if not _frame_dest_rects:

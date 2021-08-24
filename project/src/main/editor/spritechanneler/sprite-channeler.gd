@@ -30,7 +30,6 @@ func discover_images() -> Array:
 	while paths_to_search:
 		var path_rel = paths_to_search.pop_front()
 		var path_abs = path_src + path_rel + "/"
-		print(path_rel, ", ", path_abs)
 		
 		# don't discover target path itself
 		if path_abs == path_dst + "/":
