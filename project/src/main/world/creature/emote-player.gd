@@ -406,12 +406,9 @@ func _post_unemote() -> void:
 				# In the editor, we reset shader parameters to known values to avoid unnecessary churn in our scene
 				# files. At runtime, this behavior would be destructive since some of these values are only
 				# initialized when the creature is first loaded.
-				emote_sprite.colors["red"] = Color.black
-				emote_sprite.colors["green"] = Color.black
-				emote_sprite.colors["blue"] = Color.black
-				emote_sprite.colors["black"] = Color.black
+				emote_sprite.reset_channel_colors()
 				emote_sprite.update()
-	_creature_visuals.get_node("Neck0/HeadBobber/EmoteBrain").colors["red"] = Color.white
+	_creature_visuals.get_node("Neck0/HeadBobber/EmoteBrain").set_channel_colors(Color.white, null, null, null)
 	_creature_visuals.get_node("Neck0/HeadBobber/EmoteBrain").update()
 	_creature_visuals.get_node("EmoteBody").scale = Vector2(0.836, 0.836)
 	_creature_visuals.get_node("Neck0/HeadBobber/EmoteHead").position = Vector2( 0, 256 )

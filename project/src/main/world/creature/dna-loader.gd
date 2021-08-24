@@ -35,7 +35,7 @@ func _process(_delta: float) -> void:
 			# nonexistent materials. We check for null to avoid a crash.
 			if _creature_visuals.has_node(node_path):
 				if shader_param in ["red", "green", "blue", "black"]:
-					_creature_visuals.get_node(node_path).colors[shader_param] = shader_value
+					_creature_visuals.get_node(node_path).set_channel_color(shader_param, shader_value)
 					_creature_visuals.get_node(node_path).update()
 				elif _creature_visuals.get_node(node_path).material:
 					_creature_visuals.get_node(node_path).material.set_shader_param(shader_param, shader_value)
