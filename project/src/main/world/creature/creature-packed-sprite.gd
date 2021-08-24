@@ -1,6 +1,6 @@
 #tool #uncomment to view creature in editor
 class_name CreaturePackedSprite
-extends PackedSprite
+extends ChanneledPackedSprite
 """
 Sprites which toggles between a single 'toward the camera' and 'away from the camera' frame
 """

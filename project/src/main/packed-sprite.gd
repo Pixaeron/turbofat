@@ -13,7 +13,7 @@ This spatial data is available in a separate Aseprite json file.
 
 signal frame_changed
 
-export (Texture) var texture: Texture
+export (Texture) var texture: Texture setget set_texture
 
 # the path of the Aseprite json file containing spatial data for the packed texture
 export (String, FILE) var frame_data setget set_frame_data
@@ -35,6 +35,11 @@ var _frame_src_rects := []
 
 # Rect2 instances representing screen regions where each frame should be drawn
 var _frame_dest_rects := []
+
+func set_texture(new_texture: Texture) -> void:
+	if texture == new_texture:
+		return
+	texture = new_texture
 
 """
 Sets the path of the Aseprite json file.
@@ -87,8 +92,14 @@ func set_offset(new_offset: Vector2) -> void:
 	offset = new_offset
 	update()
 
-
+"""
+Relay function call to _on_draw
+This dirty hack enables overwriting Godot standard methods (_ready, _process, _draw, ...)
+"""
 func _draw() -> void:
+	_on_draw()
+
+func _on_draw() -> void:
 	if not _frame_dest_rects:
 		# frame data not loaded
 		return

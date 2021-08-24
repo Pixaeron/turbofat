@@ -49,6 +49,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/main/puzzle/box-builder.gd"
 }, {
+"base": "PackedSprite",
+"class": "ChanneledPackedSprite",
+"language": "GDScript",
+"path": "res://src/main/channeled-packed-sprite.gd"
+}, {
 "base": "Node",
 "class": "ChatAdvancer",
 "language": "GDScript",
@@ -179,7 +184,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/main/world/creature/creature-outline.gd"
 }, {
-"base": "PackedSprite",
+"base": "ChanneledPackedSprite",
 "class": "CreaturePackedSprite",
 "language": "GDScript",
 "path": "res://src/main/world/creature/creature-packed-sprite.gd"
@@ -848,6 +853,7 @@ _global_script_class_icons={
 "BoolExpressionEvaluator": "",
 "BoolExpressionParser": "",
 "BoxBuilder": "",
+"ChanneledPackedSprite": "",
 "ChatAdvancer": "",
 "ChatChoiceButton": "",
 "ChatChoices": "",

@@ -1,5 +1,5 @@
 #tool #uncomment to view creature in editor
-extends PackedSprite
+extends ChanneledPackedSprite
 """
 Draws the creature's arms, legs and torso when sprinting.
 """

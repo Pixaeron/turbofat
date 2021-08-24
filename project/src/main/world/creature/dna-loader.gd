@@ -26,14 +26,19 @@ func _process(_delta: float) -> void:
 		var start_ticks_usec := OS.get_ticks_usec()
 		while OS.get_ticks_usec() - start_ticks_usec < MAX_SHADER_USEC_PER_FRAME and _pending_shader_keys:
 			var key: String = _pending_shader_keys.pop_front()
-			var node_path: String = key.split(":")[1]
-			var shader_param: String = key.split(":")[2]
+			var key_split: PoolStringArray = key.split(":")
+			var node_path: String = key_split[1]
+			var shader_param: String = key_split[2]
 			var shader_value = _creature_visuals.dna[key]
 			
 			# Creature data from old versions of the game might try to update shaders on nonexistent nodes or
 			# nonexistent materials. We check for null to avoid a crash.
-			if _creature_visuals.has_node(node_path) and _creature_visuals.get_node(node_path).material:
-				_creature_visuals.get_node(node_path).material.set_shader_param(shader_param, shader_value)
+			if _creature_visuals.has_node(node_path):
+				if shader_param in ["red", "green", "blue", "black"]:
+					_creature_visuals.get_node(node_path).colors[shader_param] = shader_value
+					_creature_visuals.get_node(node_path).update()
+				elif _creature_visuals.get_node(node_path).material:
+					_creature_visuals.get_node(node_path).material.set_shader_param(shader_param, shader_value)
 
 
 """
@@ -84,11 +89,10 @@ func unload_dna() -> void:
 				var packed_sprite: PackedSprite = node as PackedSprite
 				packed_sprite.texture = null
 				packed_sprite.frame_data = ""
-			if node.get("material"):
-				node.material.set_shader_param("red", Color.black)
-				node.material.set_shader_param("green", Color.black)
-				node.material.set_shader_param("blue", Color.black)
-				node.material.set_shader_param("black", Color.black)
+			if node is ChanneledPackedSprite:
+				var channeled_packed_sprite: ChanneledPackedSprite = node as ChanneledPackedSprite
+				channeled_packed_sprite.reset()
+				
 	
 	_creature_visuals.get_node("Neck0/HeadBobber").position = Vector2(0, -100)
 	_creature_visuals.rescale(1.00)
