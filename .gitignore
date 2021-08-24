@@ -8,6 +8,9 @@ project/export
 project/.import/
 project/logs/
 
+# Don't put channeled images into repo
+project/assets/main/world/creature/channels
+
 # Imported translations (automatically generated from CSV files)
 project/*.translation
 
