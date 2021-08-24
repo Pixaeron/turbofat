@@ -7,6 +7,7 @@ onready var label_dst_path: Label = $UI/CenterContainer/PanelContainer/MarginCon
 onready var progress_bar: ProgressBar = $UI/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ProgressBar
 onready var button_start: Button = $UI/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Button
 
+# without ending slash!
 export(String) var path_src = "res://assets/main/world/creature"
 export(String) var path_dst = "res://assets/main/world/creature/channels"
 
@@ -28,19 +29,28 @@ func discover_images() -> Array:
 	
 	while paths_to_search:
 		var path_rel = paths_to_search.pop_front()
-		var path_abs = path_src + "/" + path_rel
+		var path_abs = path_src + path_rel + "/"
+		print(path_rel, ", ", path_abs)
 		
+		# don't discover target path itself
+		if path_abs == path_dst + "/":
+			continue
+			
 		# open directory and continue on error
 		var dir = Directory.new()
 		if dir.open(path_abs) != OK:
 			printerr("Could not open path " + path_abs)
 			continue
 			
+		# Iteratively scan all directories in path_src
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
+			# add to list of directories to scan (if valid directory)
 			if dir.current_is_dir() and file_name != ".." and file_name != ".":
+				# don't discover target path itself
 				paths_to_search.push_front(path_rel + "/" + file_name)
+			# add png files to result list
 			elif file_name.ends_with("png"):
 				found_images.append(path_rel + "/" + file_name)
 			file_name = dir.get_next()
@@ -99,6 +109,7 @@ func create_image_channels(image_path_rel: String):
 		var sub_texture: ImageTexture = ImageTexture.new()
 		sub_texture.create_from_image(sub_images[c])
 		
+		# "head.png" => "head-red.png"
 		var channel_specific_path: String = image_path_abs_dst.replace(".png", "-" + c + ".png")
 		
 		if ResourceSaver.save(channel_specific_path, sub_texture) != OK:
@@ -116,6 +127,8 @@ func _on_Button_pressed():
 	for image in _discovered_images:
 		create_image_channels(image)
 		progress_bar.value += 1
+		
+		# make sure scene doesn't freeze and leave some time to update progress bar
 		yield(get_tree(), "idle_frame")
 	
 	button_start.disabled = false
