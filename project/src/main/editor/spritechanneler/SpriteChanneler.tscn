@@ -139,6 +139,7 @@ expand = true
 stretch_mode = 6
 
 [node name="TextureRect2" type="TextureRect" parent="UI/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Control/HBoxContainer4"]
+modulate = Color( 1, 0, 0, 1 )
 margin_left = 99.0
 margin_right = 195.0
 margin_bottom = 315.0
@@ -147,6 +148,7 @@ expand = true
 stretch_mode = 6
 
 [node name="TextureRect3" type="TextureRect" parent="UI/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Control/HBoxContainer4"]
+modulate = Color( 0, 1, 0, 1 )
 margin_left = 199.0
 margin_right = 294.0
 margin_bottom = 315.0
@@ -155,6 +157,7 @@ expand = true
 stretch_mode = 6
 
 [node name="TextureRect4" type="TextureRect" parent="UI/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Control/HBoxContainer4"]
+modulate = Color( 0, 0, 1, 1 )
 margin_left = 298.0
 margin_right = 394.0
 margin_bottom = 315.0
@@ -163,6 +166,7 @@ expand = true
 stretch_mode = 6
 
 [node name="TextureRect5" type="TextureRect" parent="UI/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Control/HBoxContainer4"]
+modulate = Color( 0, 0, 0, 1 )
 margin_left = 398.0
 margin_right = 494.0
 margin_bottom = 315.0
@@ -176,19 +180,8 @@ margin_right = 594.0
 margin_bottom = 315.0
 size_flags_horizontal = 3
 
-[node name="TextureRect" type="TextureRect" parent="UI/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Control/HBoxContainer4/Result"]
-modulate = Color( 0, 0, 0, 1 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-size_flags_horizontal = 3
-expand = true
-stretch_mode = 6
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="TextureRect2" type="TextureRect" parent="UI/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Control/HBoxContainer4/Result"]
-modulate = Color( 0, 0, 1, 1 )
+modulate = Color( 1, 0, 0, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
@@ -210,7 +203,18 @@ __meta__ = {
 }
 
 [node name="TextureRect4" type="TextureRect" parent="UI/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Control/HBoxContainer4/Result"]
-modulate = Color( 1, 0, 0, 1 )
+modulate = Color( 0, 0, 1, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="UI/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Control/HBoxContainer4/Result"]
+modulate = Color( 0, 0, 0, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3

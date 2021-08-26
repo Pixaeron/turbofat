@@ -1,4 +1,4 @@
-tool
+#tool #uncomment to view creature in editor
 class_name ChanneledPackedSprite
 extends PackedSprite
 
@@ -12,7 +12,7 @@ var _reset_sub_textures: Array = [null, null, null, null]
 const _id_to_color: Array = ["red", "green", "blue", "black"]
 const _color_to_id: Dictionary = {"red":0, "green":1, "blue":2, "black":3}
 
-const _color_id_draw_order = [3, 2, 1, 0]
+const _color_id_draw_order = [0, 1, 2, 3]
 
 export(Array) var sub_textures := _reset_sub_textures
 export(Array) var channel_colors = _reset_channel_colors
@@ -63,6 +63,7 @@ func _reload_sub_textures():
 		# only set this when file actually exists i.e. channel used
 		if Directory.new().file_exists(texture_path):
 			sub_textures[c] = load(texture_path)
+			sub_textures[c].flags = 0
 		else:
 			sub_textures[c] = null
 

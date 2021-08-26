@@ -85,7 +85,7 @@ func create_image_channels(image_path_rel: String):
 	preview_container.get_child(0).texture = texture
 	
 	# prepare some variables
-	var colors = ["black", "blue", "green", "red"]
+	var colors = ["red", "green", "blue", "black"]
 	var sub_images := {}
 	var sub_image_empty := {}
 	
@@ -101,30 +101,26 @@ func create_image_channels(image_path_rel: String):
 	image.lock()
 	for y in range(texture.get_height()):
 		for x in range(texture.get_width()):
-			
-#			var rgba_in: Color = image.get_pixel(x, y)
-#			var black_amount: float = max(0.0, 1.0 - rgba_in.r - rgba_in.g - rgba_in.b);
-#
-#			var rgb_out: Color = Color(0, 0, 0, 1)
-#			rgb_out = lerp(rgb_out, Color(1,0,0,1), rgba_in.r / max(0.00001, rgba_in.r + black_amount));
-#			rgb_out = lerp(rgb_out, Color(0,1,0,1), rgba_in.g / max(0.00001, rgba_in.g + rgba_in.r + black_amount));
-#			rgb_out = lerp(rgb_out, Color(0,0,1,1), rgba_in.b / max(0.00001, rgba_in.b + rgba_in.g + rgba_in.r + black_amount));
-#			rgb_out.a = rgba_in.a;
-#
-#			sub_images["red"].set_pixel(x, y, Color(1, 1, 1, rgb_out.r * rgba_in.a))
-#			sub_images["green"].set_pixel(x, y, Color(1, 1, 1, rgb_out.g * rgba_in.a))
-#			sub_images["blue"].set_pixel(x, y, Color(1, 1, 1, rgb_out.b * rgba_in.a))
-#			sub_images["black"].set_pixel(x, y, Color(1, 1, 1, rgb_out.a * rgba_in.a))
-			
 			var color = image.get_pixel(x, y)
 			
-			var black_amount: float = max(0.0, 1.0 - color.r - color.g - color.b);
+			var r_div = (1 - color.a + color.a*color.r)
+			var g_div = (1 - color.a + color.a*color.r + color.a*color.g)
+			var b_div = (1 - color.a + color.a*color.r + color.a*color.g + color.a*color.b)
 			
+			var r = (color.a*color.r) / r_div if r_div != 0 else 0
+			var g = (color.a*color.g) / g_div if g_div != 0 else 0
+			var b = (color.a*color.b) / b_div if b_div != 0 else 0
+			var d = -color.a * (color.b + color.g + color.r - 1)
 			
-			sub_images["red"].set_pixel(x, y, Color(1, 1, 1, color.r * color.a))
-			sub_images["green"].set_pixel(x, y, Color(1, 1, 1, color.g * color.a))
-			sub_images["blue"].set_pixel(x, y, Color(1, 1, 1, color.b * color.a))
-			sub_images["black"].set_pixel(x, y, Color(1, 1, 1, black_amount * color.a))
+			r = clamp(r, 0, 1)
+			g = clamp(g, 0, 1)
+			b = clamp(b, 0, 1)
+			d = clamp(d, 0, 1)
+			
+			sub_images["red"].set_pixel(x, y, Color(1, 1, 1, r))
+			sub_images["green"].set_pixel(x, y, Color(1, 1, 1, g))
+			sub_images["blue"].set_pixel(x, y, Color(1, 1, 1, b))
+			sub_images["black"].set_pixel(x, y, Color(1, 1, 1, d))
 
 			for c in colors:
 				if sub_images[c].get_pixel(x, y).a > 0:
@@ -143,7 +139,6 @@ func create_image_channels(image_path_rel: String):
 			
 		var sub_texture: ImageTexture = ImageTexture.new()
 		sub_texture.create_from_image(sub_images[c])
-		sub_texture.flags = 0
 		
 		# "head.png" => "head-red.png"
 		var channel_specific_path: String = image_path_abs_dst.replace(".png", "-" + c + ".png")
@@ -151,7 +146,7 @@ func create_image_channels(image_path_rel: String):
 		if ResourceSaver.save(channel_specific_path, sub_texture) != OK:
 			printerr("Could not save image to " + channel_specific_path)
 		else:
-			var channel = load(channel_specific_path)
+			var channel = ResourceLoader.load(channel_specific_path, "Texture", false)
 			preview_container.get_child(i).texture = channel
 			preview_result_container.get_child(i-1).texture = channel
 
